@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>User CRUD Operation</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div align="center">
+    <table class="table_2">
+        <caption>User crud operations</caption>
+        <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${listUsers}">
+            <td th:text="${user.id}">Student ID</td>
+            <td th:text="${user.name}">Name</td>
+            <td th:text="${user.age}">Age</td>
+            <td th:text="${user.email}">Email</td>
+            <td>
+                <a class="button" th:href="@{'/edit/' + ${student.id}}">Edit</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="button-delete" th:href="@{'/delete/' + ${student.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <a class="button" th:href="@{'/new'}">Create new user</a>
+</div>
+</body>
+</html>
