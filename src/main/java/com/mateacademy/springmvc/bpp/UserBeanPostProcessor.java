@@ -1,6 +1,6 @@
-package com.mateacademy.spring_mvc.bpp;
+package com.mateacademy.springmvc.bpp;
 
-import com.mateacademy.spring_mvc.entity.User;
+import com.mateacademy.springmvc.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

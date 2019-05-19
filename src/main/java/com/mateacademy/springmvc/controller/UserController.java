@@ -1,7 +1,8 @@
-package com.mateacademy.spring_mvc.controller;
+package com.mateacademy.springmvc.controller;
 
-import com.mateacademy.spring_mvc.entity.User;
-import com.mateacademy.spring_mvc.service.UserService;
+import com.mateacademy.springmvc.entity.User;
+import com.mateacademy.springmvc.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,7 +13,12 @@ import java.util.Optional;
 
 @RestController
 public class UserController {
-    private static UserService service;
+    private final UserService service;
+
+    @Autowired
+    public UserController(UserService service){
+        this.service=service;
+    }
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
@@ -37,7 +43,7 @@ public class UserController {
     @PutMapping("/edit/{id}")
     public ModelAndView editStudentForm(@Valid @PathVariable(name = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView("edit_user");
-        Optional user = service.getUserById(id);
+        User user = service.getUserById(id);
         modelAndView.addObject("user", user);
         return modelAndView;
     }

@@ -1,6 +1,6 @@
-package com.mateacademy.spring_mvc;
+package com.mateacademy.springmvc;
 
-import com.mateacademy.spring_mvc.config.ApplicationConfig;
+import com.mateacademy.springmvc.config.ApplicationConfig;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

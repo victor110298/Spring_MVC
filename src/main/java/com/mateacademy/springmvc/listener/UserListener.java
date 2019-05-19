@@ -1,6 +1,6 @@
-package com.mateacademy.spring_mvc.listener;
+package com.mateacademy.springmvc.listener;
 
-import com.mateacademy.spring_mvc.entity.CreatableEntity;
+import com.mateacademy.springmvc.entity.CreatableEntity;
 
 import javax.persistence.PrePersist;
 import java.util.Date;

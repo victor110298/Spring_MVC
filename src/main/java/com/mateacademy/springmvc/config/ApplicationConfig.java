@@ -1,4 +1,4 @@
-package com.mateacademy.spring_mvc.config;
+package com.mateacademy.springmvc.config;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,10 +16,10 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories("com.mateacademy.spring_mvc.repository")
-@ComponentScan("com.mateacademy.spring_mvc")
+@EnableJpaRepositories("com.mateacademy.springmvc.repository")
+@ComponentScan("com.mateacademy.springmvc")
 @PropertySource("application.properties")
-@EntityScan("com.mateacademy.spring_mvc.model")
+@EntityScan("com.mateacademy.springmvc.model")
 public class ApplicationConfig {
     @Value("${url}")
     private String url;
@@ -47,12 +47,17 @@ public class ApplicationConfig {
         emFactory.setDataSource((dataSource()));
         emFactory.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         emFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        emFactory.setJpaProperties(setJpaProperties());
+        emFactory.setPackagesToScan("com.mateacademy.springmvcexample.model");
+        return emFactory;
+    }
+
+    @Bean
+    public Properties setJpaProperties() {
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.dialect", dialect);
         jpaProperties.setProperty("hibernate.hbm2ddl.auto", ddlAuto);
-        emFactory.setJpaProperties(jpaProperties);
-        emFactory.setPackagesToScan("com.mateacademy.springmvcexample.model");
-        return emFactory;
+        return jpaProperties;
     }
 
     @Bean

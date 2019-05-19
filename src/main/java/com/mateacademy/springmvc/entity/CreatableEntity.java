@@ -1,6 +1,6 @@
-package com.mateacademy.spring_mvc.entity;
+package com.mateacademy.springmvc.entity;
 
-import com.mateacademy.spring_mvc.listener.UserListener;
+import com.mateacademy.springmvc.listener.UserListener;
 import lombok.Setter;
 
 import javax.persistence.Column;

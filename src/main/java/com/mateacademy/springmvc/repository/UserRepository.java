@@ -1,4 +1,4 @@
-package com.mateacademy.spring_mvc.repository;
+package com.mateacademy.springmvc.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
