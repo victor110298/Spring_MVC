@@ -9,7 +9,7 @@ public interface UserService {
 
     void saveUser(User user);
 
-    Object getUserById(Long id) throws Throwable;
+    User getUserById(Long id) throws Throwable;
 
     void deleteUser(Long id);
 }
