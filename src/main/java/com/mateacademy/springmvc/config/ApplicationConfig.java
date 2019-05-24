@@ -51,7 +51,7 @@ public class ApplicationConfig {
         emFactory.setPackagesToScan("com.mateacademy.springmvcexample.model");
         return emFactory;
     }
-    
+
     public Properties setJpaProperties() {
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.dialect", dialect);
