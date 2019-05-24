@@ -19,18 +19,22 @@ import java.util.Properties;
 @EnableJpaRepositories("com.mateacademy.springmvc.repository")
 @ComponentScan("com.mateacademy.springmvc")
 @PropertySource("application.properties")
-@EntityScan("com.mateacademy.springmvc.model")
 public class ApplicationConfig {
     @Value("${url}")
     private String url;
+
     @Value("${user}")
     private String user;
+
     @Value("${driver}")
     private String driver;
+
     @Value("${password}")
     private String password;
+
     @Value("${hibernate.dialect}")
     private String dialect;
+
     @Value("${ddl-auto}")
     private String ddlAuto;
 
@@ -48,7 +52,7 @@ public class ApplicationConfig {
         emFactory.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         emFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         emFactory.setJpaProperties(setJpaProperties());
-        emFactory.setPackagesToScan("com.mateacademy.springmvcexample.model");
+        emFactory.setPackagesToScan("com.mateacademy.springmvc.entity");
         return emFactory;
     }
 

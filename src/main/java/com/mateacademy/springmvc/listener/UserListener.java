@@ -4,7 +4,6 @@ import com.mateacademy.springmvc.entity.CreatableEntity;
 
 import javax.persistence.PrePersist;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class UserListener {
     @PrePersist

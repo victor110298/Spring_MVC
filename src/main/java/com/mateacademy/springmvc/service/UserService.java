@@ -11,7 +11,7 @@ public interface UserService {
 
     void saveUser(User user);
 
-    User getUserById(Long id) throws Throwable;
+    User getUserById(Long id);
 
     void deleteUser(Long id);
 }

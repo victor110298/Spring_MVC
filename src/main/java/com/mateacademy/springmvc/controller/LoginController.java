@@ -14,9 +14,10 @@ import java.util.Objects;
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LoginController {
-    private final UserService userService;
     private static final String SUCCESS_MESSAGE = "User has been registered successfully";
     private static final String ERROR_MESSAGE = "There is already a user registered with the name";
+
+    private final UserService userService;
 
     @GetMapping(value = {"/", "/login"})
     public ModelAndView login() {

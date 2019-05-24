@@ -24,8 +24,8 @@ public class UserController {
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
-        List<User> listStudents = service.getAllUsers();
-        model.addAttribute("listStudents", listStudents);
+        List<User> users = service.getAllUsers();
+        model.addAttribute("users", users);
         return "index";
     }
 
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PutMapping("/edit/{id}")
-    public ModelAndView editStudentForm(@Valid @PathVariable(name = "id") Long id) throws Throwable {
+    public ModelAndView editUsersForm(@Valid @PathVariable(name = "id") Long id) throws Throwable {
         ModelAndView modelAndView = new ModelAndView("edit_user");
         User user = service.getUserById(id);
         modelAndView.addObject("user", user);
