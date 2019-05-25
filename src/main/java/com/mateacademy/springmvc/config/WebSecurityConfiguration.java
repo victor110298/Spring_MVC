@@ -42,14 +42,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/registration").permitAll()
-                .antMatchers("/students/new", "/students/save", "/students/edit/{id}", "/students/delete/{id}")
+                .antMatchers("/users/new", "/users/save", "/users/edit/{id}", "/users/delete/{id}")
                 .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/students")
+                .defaultSuccessUrl("/users")
                 .usernameParameter("userName")
                 .passwordParameter("password")
                 .and()
@@ -59,7 +59,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**");
     }
 }
