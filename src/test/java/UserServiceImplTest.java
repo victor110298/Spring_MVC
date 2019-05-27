@@ -1,61 +1,71 @@
 import com.mateacademy.springmvc.entity.User;
+import com.mateacademy.springmvc.repository.UserRepository;
 import com.mateacademy.springmvc.service.UserService;
+import com.mateacademy.springmvc.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImplTest {
-    private final UserService service;
+
+    private  UserService userService;
+    private  UserRepository userRepository;
+    private User user;
 
     @Before
     public void init() {
-        User user = new User();
+        userRepository = mock(UserRepository.class);
+        userService = new UserServiceImpl(userRepository);
+    }
+    @After
+    public void drop() {
+        userService.deleteUserById(1L);
+    }
+
+    @Test
+    public void createUser() {
+         user = new User();
         user.setName("Pavlo")
                 .setEmail("pavlo11@test.net")
                 .setActive(1)
                 .setPassword("1111")
                 .setAge(24);
-        service.createUser(user);
-    }
-
-    @After
-    public void drop() {
-        service.deleteUserById(1L);
-    }
-
-    @Test
-    public void createUser() {
-        assertTrue(service.getAllUsers().contains(service.getUserById(1L)));
+        userService.createUser(user);
+        verify(userRepository).save(user);
+        assertTrue(userService.getAllUsers().contains(userService.getUserById(1L)));
     }
 
     @Test
     public void deleteUser() {
-        service.deleteUserById(1L);
-        assertTrue(service.getAllUsers().isEmpty());
+        userService.deleteUserById(1L);
+        assertTrue(userService.getAllUsers().isEmpty());
     }
 
     @Test
     public void findUserById() {
         String expectedName = "Pavlo";
-        User user = service.getUserById(1L);
+       User user = userService.getUserById(1L);
         assertEquals(user.getName(), expectedName);
     }
 
     @Test
     public void getAllUsers() {
-        User user = new User()
+         user = new User()
                 .setName("Petro")
                 .setEmail("petro22@test.net")
                 .setActive(1)
                 .setPassword("2222")
                 .setAge(26);
         int expectedSize = 2;
-        assertEquals(service.getAllUsers().size(), expectedSize);
+        assertEquals(userService.getAllUsers().size(), expectedSize);
     }
 }
