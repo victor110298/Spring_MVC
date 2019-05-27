@@ -19,12 +19,14 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response,
+                           Object handler, ModelAndView modelAndView) throws Exception {
         log.info("-----Interceptor postHandle called");
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
+                                Object handler, Exception exception) throws Exception {
         log.info("-----Interceptor afterCompletion called");
     }
 }

@@ -2,16 +2,14 @@ package com.mateacademy.springmvc.config;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import java.util.Properties;
 
@@ -46,13 +44,14 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean emFactory = new LocalContainerEntityManagerFactoryBean();
-        emFactory.setDataSource((dataSource()));
-        emFactory.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        emFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) {
+        LocalContainerEntityManagerFactoryBean emFactory = builder
+                .dataSource(dataSource())
+                .persistenceUnit("mateacademy")
+                .packages("com.mateacademy.springmvc.entity")
+                .jta(true)
+                .build();
         emFactory.setJpaProperties(setJpaProperties());
-        emFactory.setPackagesToScan("com.mateacademy.springmvc.entity");
         return emFactory;
     }
 
@@ -61,12 +60,5 @@ public class ApplicationConfig {
         jpaProperties.setProperty("hibernate.dialect", dialect);
         jpaProperties.setProperty("hibernate.hbm2ddl.auto", ddlAuto);
         return jpaProperties;
-    }
-
-    @Bean
-    public JpaTransactionManager transactionManager() {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-        return transactionManager;
     }
 }
