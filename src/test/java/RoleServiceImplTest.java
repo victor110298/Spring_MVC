@@ -1,34 +1,40 @@
-import com.mateacademy.springmvc.entity.Role;
+
+import com.mateacademy.springmvc.entity.User;
 import com.mateacademy.springmvc.repository.RoleRepository;
 import com.mateacademy.springmvc.service.RoleServiceImpl;
+import org.hamcrest.core.IsSame;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 
 public class RoleServiceImplTest {
-    private RoleRepository roleRepository;
-    private Role role;
+    @Mock
+    private RoleRepository repository;
+
+    @InjectMocks
     private RoleServiceImpl service;
 
     @Before
-    public void init() {
-        roleRepository = mock(RoleRepository.class);
-        service = new RoleServiceImpl(roleRepository);
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void testFindByRole() {
-        role = new Role();
-        role.setRole("user");
-        Role role2=new Role();
-        role2.setRole("admin");
-        service.findByRole(role.getRole());
-        verify(roleRepository).findByRole(role.getRole());
-        assertEquals(role.getRole(),"user");
-        assertEquals(role2.getRole(),"admin");
+        User user = new User();
+        when(repository.findByRole(anyString())).thenReturn(user);
+        User result = service.findByRole("user");
+        assertThat("result", result, is(IsSame.sameInstance(user)));
+        verify(repository).findByRole("user");
     }
 }
