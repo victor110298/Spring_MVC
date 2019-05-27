@@ -40,7 +40,7 @@ public class UserController {
 
     @PostMapping("/save")
     public String saveUser(@ModelAttribute("user") User user) {
-        service.saveUser(user);
+        service.createUser(user);
         return "redirect:/";
     }
 
@@ -54,7 +54,7 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable(name = "id") Long id) {
-        service.deleteUser(id);
+        service.deleteUserById(id);
         return "redirect:/";
     }
 }

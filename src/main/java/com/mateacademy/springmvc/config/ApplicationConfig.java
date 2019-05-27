@@ -47,7 +47,7 @@ public class ApplicationConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) {
         LocalContainerEntityManagerFactoryBean emFactory = builder
                 .dataSource(dataSource())
-                .persistenceUnit("mateacademy")
+                .persistenceUnit("mateacademy1")
                 .packages("com.mateacademy.springmvc.entity")
                 .jta(true)
                 .build();
