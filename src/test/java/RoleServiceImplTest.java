@@ -1,4 +1,5 @@
 
+import com.mateacademy.springmvc.entity.Role;
 import com.mateacademy.springmvc.entity.User;
 import com.mateacademy.springmvc.repository.RoleRepository;
 import com.mateacademy.springmvc.service.RoleServiceImpl;
@@ -31,10 +32,10 @@ public class RoleServiceImplTest {
 
     @Test
     public void testFindByRole() {
-        User user = new User();
-        when(repository.findByRole(anyString())).thenReturn(user);
-        User result = service.findByRole("user");
-        assertThat("result", result, is(IsSame.sameInstance(user)));
+        Role role=new Role();
+        when(repository.findByRole(anyString())).thenReturn(java.util.Optional.of(role));
+        Role result = service.findByRole("user");
+        assertThat("result", result, is(IsSame.sameInstance(role)));
         verify(repository).findByRole("user");
     }
 }

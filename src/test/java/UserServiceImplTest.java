@@ -1,71 +1,68 @@
+import com.mateacademy.springmvc.entity.Role;
 import com.mateacademy.springmvc.entity.User;
 import com.mateacademy.springmvc.repository.UserRepository;
-import com.mateacademy.springmvc.service.UserService;
 import com.mateacademy.springmvc.service.UserServiceImpl;
-import lombok.AllArgsConstructor;
-import org.junit.After;
+import org.hamcrest.core.IsSame;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.mock;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 public class UserServiceImplTest {
-
-    private  UserService userService;
-    private  UserRepository userRepository;
-    private User user;
+    @Mock
+    private UserRepository userRepository;
+    @InjectMocks
+    private UserServiceImpl service;
 
     @Before
-    public void init() {
-        userRepository = mock(UserRepository.class);
-        userService = new UserServiceImpl(userRepository);
-    }
-    @After
-    public void drop() {
-        userService.deleteUserById(1L);
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void createUser() {
-         user = new User();
-        user.setName("Pavlo")
-                .setEmail("pavlo11@test.net")
-                .setActive(1)
-                .setPassword("1111")
-                .setAge(24);
-        userService.createUser(user);
-        verify(userRepository).save(user);
-        assertTrue(userService.getAllUsers().contains(userService.getUserById(1L)));
+        User user = new User();
+        when(userRepository.save(any(User.class))).thenReturn(user);
+        service.createUser(user);
+        assertThat(service.createUser(user), is(notNullValue()));
     }
 
     @Test
     public void deleteUser() {
-        userService.deleteUserById(1L);
-        assertTrue(userService.getAllUsers().isEmpty());
+        User user = new User();
+        when(userRepository.findById(1L)).thenReturn(java.util.Optional.of(user));
+        service.deleteUserById(1L);
+        assert (service.getAllUsers().isEmpty());
+        verify(userRepository, never()).delete(any(User.class));
     }
 
     @Test
     public void findUserById() {
-        String expectedName = "Pavlo";
-       User user = userService.getUserById(1L);
-        assertEquals(user.getName(), expectedName);
+        User user = new User();
+        when(userRepository.findById(1L)).thenReturn(java.util.Optional.of(user));
+        User result = service.getUserById(1L);
+        assertThat("result", result, is(IsSame.sameInstance(user)));
+        verify(userRepository).findById(1L);
     }
+
 
     @Test
     public void getAllUsers() {
-         user = new User()
-                .setName("Petro")
-                .setEmail("petro22@test.net")
-                .setActive(1)
-                .setPassword("2222")
-                .setAge(26);
-        int expectedSize = 2;
-        assertEquals(userService.getAllUsers().size(), expectedSize);
+        User users = new User();
+        when(userRepository.findAll()).thenReturn((List<User>) users);
+        List<User> result = service.getAllUsers();
+        assertThat(result, is(IsSame.sameInstance(users)));
+        verify(userRepository).findAll();
     }
 }

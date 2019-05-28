@@ -1,6 +1,7 @@
 package com.mateacademy.springmvc.entity;
 
 import com.mateacademy.springmvc.listener.UserListener;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
