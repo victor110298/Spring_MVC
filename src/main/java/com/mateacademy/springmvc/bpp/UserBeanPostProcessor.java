@@ -1,19 +1,19 @@
 package com.mateacademy.springmvc.bpp;
 
 import com.mateacademy.springmvc.entity.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 
-
+@Component
+@Log4j
 public class UserBeanPostProcessor implements BeanPostProcessor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserBeanPostProcessor.class);
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (bean instanceof User) {
-            LOGGER.info("In postProcessBeforeInitialization " + bean);
+            log.info("In postProcessBeforeInitialization " + bean);
         }
         return bean;
     }
@@ -21,7 +21,7 @@ public class UserBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (bean instanceof User) {
-            LOGGER.info("In postProcessAfterInitialization " + bean);
+            log.info("In postProcessAfterInitialization " + bean);
         }
         return bean;
     }

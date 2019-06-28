@@ -1,6 +1,7 @@
 package com.mateacademy.springmvc;
 
 import com.mateacademy.springmvc.config.ApplicationConfig;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -8,6 +9,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class SpringMvcApplication {
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+        SpringApplication.run(SpringMvcApplication.class, args);
     }
 }

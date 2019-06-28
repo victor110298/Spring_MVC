@@ -4,7 +4,7 @@
     padding: 10px;
     position: relative;
     font-family: 'Raleway', 'Lato', Arial, sans-serif;
-    color: #12ff01;
+    color: black;
     text-shadow: 0 2px 1px rgba(0,0,0,0.3);
 }
 
@@ -17,7 +17,7 @@
     width: 100%;
     padding: 8px 4px 8px 10px;
     margin-bottom: 15px;
-    border: 1px solid #010103;
+    border: 1px solid #4e3043;
     border: 1px solid rgba(78,48,67, 0.8);
     background: rgba(0,0,0,0.15);
     border-radius: 2px;
